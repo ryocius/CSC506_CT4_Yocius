@@ -1,10 +1,10 @@
-
+# Generic Object Class used by both lists
 class Object:
     def __init__(self, name):
         self.name = name
 
-    def printName(self):
-        print(self.name)
+    def getName(self):
+        return self.name
 
 
 # Create a Linked List Node class designed for use in a Queue
@@ -13,22 +13,20 @@ class LinkedListNode:
         self.object = object
         self.next = None
 
+    def setObj(self, object):
+        self.object = object
 
+    def getObj(self):
+        return self.object
+
+# Queue implemented using the linked list data structure
 class LinkedListQueue:
     def __init__(self):
+        self.tail = None
         self.head = None
 
-    # Enqueue, or insert at beginning of linked list
-    def enqueue(self, object):
-        new_node = LinkedListNode(object)
-        if self.head is None:
-            self.head = new_node
-            return
-        else:
-            new_node.next = self.head
-            self.head = new_node
-
-    def listLength(self):
+    # Utility function to check the length of the queue
+    def queueLength(self):
         size = 0
         if(self.head):
             thisNode = self.head
@@ -37,19 +35,33 @@ class LinkedListQueue:
                 thisNode = thisNode.next
         return size
 
+
+    # Enqueue, or insert at beginning of linked list
+    def enqueue(self, object):
+        newNode = LinkedListNode(object)
+
+        if self.tail is None:
+            self.tail = newNode
+            self.head = newNode
+            print(f"Enqueuing object: {newNode.getObj().getName()}")
+            return
+
+        self.tail.next = newNode
+        self.tail = newNode
+        print(f"Enqueuing object: {newNode.getObj().getName()}")
+
     # Dequeue, or remove last node from linked list
     def dequeue(self):
-        if self.head is None:
+        if self.queueLength() == 0:
             return None
 
         thisNode = self.head
-        if self.listLength() == 1:
-            return thisNode
-        else:
-            while(thisNode.next.next):
-                thisNode = thisNode.next
+        self.head = thisNode.next
+        if(self.head == None):
+            self.tail = None
 
         thisNode.next = None
+        print(f"Dequeuing object: {thisNode.getObj().getName()}")
         return thisNode
 
 
@@ -60,15 +72,17 @@ obj3 = Object("obj3")
 obj4 = Object("obj4")
 
 list = LinkedListQueue()
-list.enqueue(obj1)
-list.dequeue().object.printName()
 
 list.enqueue(obj1)
 list.enqueue(obj2)
 list.enqueue(obj3)
 list.enqueue(obj4)
-list.dequeue().object.printName()
-list.dequeue().object.printName()
-list.dequeue().object.printName()
-list.dequeue().object.printName()
-list.dequeue().object.printName()
+print(list.queueLength())
+list.dequeue()
+list.dequeue()
+list.dequeue()
+list.dequeue()
+list.dequeue()
+list.dequeue()
+list.dequeue()
+list.dequeue()
