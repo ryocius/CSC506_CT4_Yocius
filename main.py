@@ -1,4 +1,7 @@
 # Generic Object Class used by both lists
+import timeit
+
+
 class Object:
     def __init__(self, name):
         self.name = name
@@ -125,10 +128,44 @@ def functionTest():
     stack.pop()
 
 
-# def perfExperiment():
+def perfExperiment():
+    SETUP_CODE = '''
+from __main__ import Object, ListBasedStack, LinkedListNode, LinkedListQueue  
+
+numObjects = 1000
+objects = []
+for i in range(numObjects):
+    objects.append(Object(f"obj{i}")) 
+
+'''
+
+    STACK_CODE = '''
+stack = ListBasedStack()
+for j in objects:
+    stack.push(j)
+
+for k in objects:
+    stack.pop()
+'''
+
+    QUEUE_CODE = '''
+queue = LinkedListQueue()
+for j in objects:
+    queue.enqueue(j)
+    
+for k in objects:
+    queue.dequeue()    
+'''
+
+    stackTimes = timeit.repeat(stmt=STACK_CODE, setup=SETUP_CODE, repeat=5, number=100)
+    print(f"Best list-based stack time = {min(stackTimes)}")
+    queueTimes = timeit.repeat(stmt=QUEUE_CODE, setup=SETUP_CODE, repeat=5, number=100)
+    print(f"Best linked list queue time = {min(queueTimes)}")
 
 
-functionTest()
 
 
+# functionTest()
+
+perfExperiment()
 
