@@ -10,16 +10,21 @@ class Object:
 # List based stack
 # Time complexity of O(1)
 class ListBasedStack:
-    def __init__(self):
+    def __init__(self, printBool = False):
         self.stack = []
+        self.printBool = printBool
 
     def push(self, object):
         self.stack.append(object)
-        print(f"Pushed object: {object.getName()} to stack")
+        if self.printBool:
+            print(f"Pushed object: {object.getName()} to stack")
 
     def pop(self):
         if len(self.stack) >= 1:
-            print(f"Popped object: {self.stack.pop().getName()} from the stack")
+            if self.printBool:
+                print(f"Popped object: {self.stack.pop().getName()} from the stack")
+            else:
+                self.stack.pop()
 
 
 # Create a Linked List Node class designed for use in a Queue
@@ -37,9 +42,10 @@ class LinkedListNode:
 # Queue implemented using the linked list data structure
 # Time complexity of O(1)
 class LinkedListQueue:
-    def __init__(self):
+    def __init__(self, printBool = False):
         self.tail = None
         self.head = None
+        self.printBool = printBool
 
     # Utility function to check the length of the queue
     def queueLength(self):
@@ -59,12 +65,14 @@ class LinkedListQueue:
         if self.tail is None:
             self.tail = newNode
             self.head = newNode
-            print(f"Enqueuing object: {newNode.getObj().getName()}")
+            if self.printBool:
+                print(f"Enqueuing object: {newNode.getObj().getName()}")
             return
 
         self.tail.next = newNode
         self.tail = newNode
-        print(f"Enqueuing object: {newNode.getObj().getName()}")
+        if self.printBool:
+            print(f"Enqueuing object: {newNode.getObj().getName()}")
 
     # Dequeue, or remove last node from linked list
     def dequeue(self):
@@ -77,44 +85,50 @@ class LinkedListQueue:
             self.tail = None
 
         thisNode.next = None
-        print(f"Dequeuing object: {thisNode.getObj().getName()}")
+        if self.printBool:
+            print(f"Dequeuing object: {thisNode.getObj().getName()}")
         return thisNode
 
+def functionTest():
+    obj1 = Object("obj1")
+    obj2 = Object("obj2")
+    obj3 = Object("obj3")
+    obj4 = Object("obj4")
+
+    list = LinkedListQueue(True)
+
+    list.enqueue(obj1)
+    list.enqueue(obj2)
+    list.enqueue(obj3)
+    list.enqueue(obj4)
+    list.dequeue()
+    list.dequeue()
+    list.dequeue()
+    list.dequeue()
+    list.dequeue()
+    list.dequeue()
+    list.dequeue()
+    list.dequeue()
+
+    stack = ListBasedStack(True)
+    stack.push(obj1)
+    stack.pop()
+    stack.pop()
+    stack.push(obj1)
+    stack.push(obj2)
+    stack.push(obj3)
+    stack.push(obj4)
+    stack.pop()
+    stack.pop()
+    stack.pop()
+    stack.pop()
+    stack.pop()
 
 
-obj1 = Object("obj1")
-obj2 = Object("obj2")
-obj3 = Object("obj3")
-obj4 = Object("obj4")
+# def perfExperiment():
 
-list = LinkedListQueue()
 
-list.enqueue(obj1)
-list.enqueue(obj2)
-list.enqueue(obj3)
-list.enqueue(obj4)
-print(list.queueLength())
-list.dequeue()
-list.dequeue()
-list.dequeue()
-list.dequeue()
-list.dequeue()
-list.dequeue()
-list.dequeue()
-list.dequeue()
+functionTest()
 
-stack = ListBasedStack()
-stack.push(obj1)
-stack.pop()
-stack.pop()
-stack.push(obj1)
-stack.push(obj2)
-stack.push(obj3)
-stack.push(obj4)
-stack.pop()
-stack.pop()
-stack.pop()
-stack.pop()
-stack.pop()
 
 
