@@ -42,6 +42,7 @@ class LinkedListNode:
     def getObj(self):
         return self.object
 
+
 # Queue implemented using the linked list data structure
 # Time complexity of O(1)
 class LinkedListQueue:
@@ -59,7 +60,6 @@ class LinkedListQueue:
                 size += 1
                 thisNode = thisNode.next
         return size
-
 
     # Enqueue, or insert at beginning of linked list
     def enqueue(self, object):
@@ -91,6 +91,7 @@ class LinkedListQueue:
         if self.printBool:
             print(f"Dequeuing object: {thisNode.getObj().getName()}")
         return thisNode
+
 
 def functionTest():
     obj1 = Object("obj1")
