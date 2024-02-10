@@ -7,6 +7,21 @@ class Object:
         return self.name
 
 
+# List based stack
+# Time complexity of O(1)
+class ListBasedStack:
+    def __init__(self):
+        self.stack = []
+
+    def push(self, object):
+        self.stack.append(object)
+        print(f"Pushed object: {object.getName()} to stack")
+
+    def pop(self):
+        if len(self.stack) >= 1:
+            print(f"Popped object: {self.stack.pop().getName()} from the stack")
+
+
 # Create a Linked List Node class designed for use in a Queue
 class LinkedListNode:
     def __init__(self, object):
@@ -20,6 +35,7 @@ class LinkedListNode:
         return self.object
 
 # Queue implemented using the linked list data structure
+# Time complexity of O(1)
 class LinkedListQueue:
     def __init__(self):
         self.tail = None
@@ -86,3 +102,19 @@ list.dequeue()
 list.dequeue()
 list.dequeue()
 list.dequeue()
+
+stack = ListBasedStack()
+stack.push(obj1)
+stack.pop()
+stack.pop()
+stack.push(obj1)
+stack.push(obj2)
+stack.push(obj3)
+stack.push(obj4)
+stack.pop()
+stack.pop()
+stack.pop()
+stack.pop()
+stack.pop()
+
+
